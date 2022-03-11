@@ -1,0 +1,15 @@
+#reticle {
+  display: flex;
+}
+
+#reticle-loading {
+  display: flex;
+}
+
+#reticle.hidden {
+  display: none;
+}
+
+#reticle-loading.hidden {
+  display: none;
+}
