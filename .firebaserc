@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "plynth-app"
+    "default": "plynth-2020"
+  },
+  "targets": {
+    "plynth-2020": {
+      "hosting": {
+        "production": [
+          "plynth-app"
+        ]
+      }
+    }
   }
 }
