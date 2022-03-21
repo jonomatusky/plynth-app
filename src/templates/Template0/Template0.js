@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Box, Button } from '@mui/material'
 import Div100vh from 'components/Div100vh'
 import { CSS3DObject } from 'util/CSS3DRenderer'
 import BrandingBar from 'templates/components/BrandingBar'
@@ -8,8 +9,18 @@ import SoundButton from 'templates/components/SoundButton'
 const Template0 = ({ experience }) => {
   const videoRef = useRef()
 
-  const object = (experience.objects || [])[0]
-  const { assetUrl: src, height, unLoop, unMuted, unAutoPlay } = object || {}
+  const { objects, links, targetUrl, hideLinks } = experience || {}
+  const object = (objects || [])[0]
+  const link = (links || [])[0]
+  const {
+    assetUrl: src,
+    height,
+    width,
+    unLoop,
+    unMuted,
+    unAutoPlay,
+  } = object || {}
+  const { url, label, color, fontColor } = link || {}
   // const button = (experience.links || [])[0]
 
   const [isFound, setIsFound] = useState(false)
@@ -31,18 +42,15 @@ const Template0 = ({ experience }) => {
     videoRef.current.muted = !isMuted
 
     setIsMuted(!isMuted)
-    console.log(isMuted)
   }
 
   useEffect(() => {
     const targetFound = () => {
-      console.log('targetFound')
       setIsFound(true)
       play()
     }
 
     const targetLost = () => {
-      console.log('targetLost')
       setIsFound(false)
       pause()
     }
@@ -50,10 +58,9 @@ const Template0 = ({ experience }) => {
     const initMindAR = async () => {
       const mindarThree = new window.MINDAR.IMAGE.MindARThree({
         container: document.querySelector('#container'),
-        imageTargetSrc:
-          'https://plynth-barebones.s3.us-east-2.amazonaws.com/a9664331-19a2-4f82-8441-790ac8da8bc2.mind ',
-        filterMinCF: 0.001,
-        filterBeta: 10000,
+        imageTargetSrc: targetUrl,
+        // filterMinCF: 0.001,
+        // filterBeta: 10000,
         uiScanning: '#reticle',
         uiLoading: '#reticle-loading',
       })
@@ -71,8 +78,10 @@ const Template0 = ({ experience }) => {
       })
     }
 
-    initMindAR()
-  }, [])
+    if (targetUrl) {
+      initMindAR()
+    }
+  }, [targetUrl])
 
   const containerStyle = {
     height: '100%',
@@ -83,7 +92,7 @@ const Template0 = ({ experience }) => {
 
   const arStyle = {
     width: '1000px',
-    height: '666px',
+    height: 1000 * (height / width) + 'px',
     textAlign: 'center',
     visibility: 'hidden',
   }
@@ -92,8 +101,38 @@ const Template0 = ({ experience }) => {
     <>
       <Reticle />
       <ReticleLoading />
+      {isFound && (
+        <>
+          <SoundButton isMuted={isMuted} toggleMute={toggleMute} />
+          {!!url && !hideLinks && (
+            <Box
+              position="absolute"
+              bottom="50px"
+              width="100%"
+              textAlign="center"
+              zIndex={3000}
+            >
+              <Button
+                variant="contained"
+                // disableElevation
+                href={url}
+                sx={{
+                  borderRadius: '50px',
+                  color: fontColor,
+                  backgroundColor: color || '#000',
+                  '&:hover': {
+                    backgroundColor: color || '#000',
+                    boxShadow: `0px 1px #000`,
+                  },
+                }}
+              >
+                {label || 'Learn More'}
+              </Button>
+            </Box>
+          )}
+        </>
+      )}
       <BrandingBar />
-      {isFound && <SoundButton isMuted={isMuted} toggleMute={toggleMute} />}
       <Div100vh width="100%" overflow="hidden">
         <div id="container" style={containerStyle}></div>
         <div id="ar-div" style={arStyle}>
@@ -104,7 +143,7 @@ const Template0 = ({ experience }) => {
               loop={!unLoop}
               muted={!unMuted}
               autoPlay={!unAutoPlay}
-              height={1000 * height + 'px'}
+              height={1000 * (height / width) + 'px'}
               width="1000px"
               style={{ objectFit: 'cover' }}
               playsInline
