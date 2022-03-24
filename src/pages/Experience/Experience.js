@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 
 import { useRequest } from 'hooks/use-request'
 import TemplateSwitch from './components/TemplateSwitch'
+import LoadingScreen from 'components/LoadingScreen'
+import NotFound from 'components/NotFound'
 
 const Experience = () => {
   const { request } = useRequest()
@@ -10,14 +12,13 @@ const Experience = () => {
   const [status, setStatus] = useState('idle')
   const [experience, setExperience] = useState()
 
-  // const experience = {
-  //   objects: [
-  //     {
-  //       assetUrl: 'https://plynthplayer.com/RPReplay_Final1636473423-480.mov',
-  //       height: 0.6666,
-  //     },
-  //   ],
-  // }
+  useEffect(() => {
+    window.onpageshow = function (event) {
+      if (event.persisted) {
+        window.location.reload()
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (status === 'idle' && !experience) {
@@ -42,7 +43,13 @@ const Experience = () => {
     }
   }, [status, request, id])
 
-  return <TemplateSwitch experience={experience} />
+  if (!!experience) {
+    return <TemplateSwitch experience={experience} />
+  } else if (status === 'idle' || status === 'loading') {
+    return <LoadingScreen />
+  } else {
+    return <NotFound />
+  }
 }
 
 export default Experience
