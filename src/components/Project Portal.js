@@ -29,7 +29,7 @@ import Div100vh from 'components/Div100vh'
 
 import Webcam from 'react-webcam'
 
-const PortalOpen = () => {
+const Project = () => {
   const {
     portalUser,
     scanCount,
@@ -237,4 +237,4 @@ const PortalOpen = () => {
   )
 }
 
-export default PortalOpen
+export default Project
