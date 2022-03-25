@@ -19,7 +19,7 @@ const Template0 = ({ experience }) => {
     width,
     unLoop,
     unMuted,
-    unAutoPlay,
+    // unAutoPlay,
   } = object || {}
   const { url, label, color, fontColor } = link || {}
   // const button = (experience.links || [])[0]
@@ -139,11 +139,11 @@ const Template0 = ({ experience }) => {
               src={src}
               loop={!unLoop}
               muted={!unMuted}
-              autoPlay={!unAutoPlay}
               height={1000 * (height / width) + 'px'}
               width="1000px"
               style={{ objectFit: 'cover' }}
               playsInline
+              preload="auto"
             ></video>
           )}
         </div>

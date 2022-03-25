@@ -43,7 +43,7 @@ const Experience = () => {
     }
   }, [status, request, id])
 
-  if (!!experience) {
+  if (!!experience && !experience.isRemoved) {
     return <TemplateSwitch experience={experience} />
   } else if (status === 'idle' || status === 'loading') {
     return <LoadingScreen />
