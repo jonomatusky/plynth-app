@@ -18,7 +18,8 @@ const App = () => {
           path="/"
           element={<ExternalRedirect url="https://plynth.com" />}
         />
-        <Route path="/:id" element={<Experience />} />
+        <Route path="/e/:id" element={<Experience />} />
+        <Route path="/project" element={<Experience />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
