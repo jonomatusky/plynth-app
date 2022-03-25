@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { CSS3DRenderer, CSS3DObject } from 'util/CSS3DRenderer'
 
 import * as THREE from 'three'
 import 'mind-ar/dist/mindar-image.prod'
