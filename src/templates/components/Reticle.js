@@ -10,8 +10,8 @@ const ReticleInner = ({ children }) => {
         <div
           style={{
             position: 'relative',
-            width: '90vw',
-            height: '105vw',
+            width: '80vw',
+            height: '90vw',
             opacity: '0.8',
             background:
               'linear-gradient(to right, #fff 5px, transparent 5px) 0 0, linear-gradient(to right, #fff 5px, transparent 5px) 0 100%, linear-gradient(to left, #fff 5px, transparent 5px) 100% 0, linear-gradient(to left, #fff 5px, transparent 5px) 100% 100%, linear-gradient(to bottom, #fff 5px, transparent 5px) 0 0, linear-gradient(to bottom, #fff 5px, transparent 5px) 100% 0, linear-gradient(to top, #fff 5px, transparent 5px) 0 100%, linear-gradient(to top, #fff 5px, transparent 5px) 100% 100%',
@@ -25,21 +25,6 @@ const ReticleInner = ({ children }) => {
           {children}
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          width: '100%',
-          marginTop: '2rem',
-          height: '110px',
-        }}
-      >
-        <img
-          src={ScanInstructions}
-          style={{ width: '156px' }}
-          alt="Scan Instructions"
-        />
-      </div>
     </>
   )
 }
@@ -51,7 +36,7 @@ export const Reticle = () => {
       style={{
         position: 'absolute',
         top: 0,
-        bottom: 0,
+        bottom: 30,
         left: 0,
         right: 0,
         zIndex: 2,
@@ -63,7 +48,23 @@ export const Reticle = () => {
       }}
       className="hidden"
     >
-      <ReticleInner />
+      <ReticleInner>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            marginTop: '1rem',
+            height: '110px',
+          }}
+        >
+          <img
+            src={ScanInstructions}
+            style={{ width: '156px' }}
+            alt="Scan Instructions"
+          />
+        </div>
+      </ReticleInner>
     </div>
   )
 }
@@ -75,7 +76,7 @@ export const ReticleLoading = () => {
       style={{
         position: 'absolute',
         top: 0,
-        bottom: 0,
+        bottom: 30,
         left: 0,
         right: 0,
         zIndex: 2,
