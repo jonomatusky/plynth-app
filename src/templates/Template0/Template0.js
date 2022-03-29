@@ -5,6 +5,7 @@ import { CSS3DObject } from 'util/CSS3DRenderer'
 import BrandingBar from 'templates/components/BrandingBar'
 import { Reticle, ReticleLoading } from '../components/Reticle'
 import SoundButton from 'templates/components/SoundButton'
+import ErrorDialog from './components/ErrorDialog'
 
 const Template0 = ({ experience }) => {
   const videoRef = useRef()
@@ -26,6 +27,7 @@ const Template0 = ({ experience }) => {
 
   const [isFound, setIsFound] = useState(false)
   const [isMuted, setIsMuted] = useState(!unMuted)
+  const [ErrorDialogOpen, setErrorDialogOpen] = useState(false)
 
   const play = () => {
     if (videoRef.current) {
@@ -60,8 +62,8 @@ const Template0 = ({ experience }) => {
       const mindarThree = new window.MINDAR.IMAGE.MindARThree({
         container: document.querySelector('#container'),
         imageTargetSrc: targetUrl,
-        filterMinCF: 0.0001,
-        filterBeta: 1000,
+        filterMinCF: 0.00000001,
+        filterBeta: 1,
         uiScanning: '#reticle',
         uiLoading: '#reticle-loading',
       })
@@ -73,10 +75,14 @@ const Template0 = ({ experience }) => {
       cssAnchor.onTargetLost = targetLost
       cssAnchor.group.add(obj)
 
-      await mindarThree.start()
-      renderer.setAnimationLoop(() => {
-        cssRenderer.render(cssScene, camera)
-      })
+      try {
+        await mindarThree.start()
+        renderer.setAnimationLoop(() => {
+          cssRenderer.render(cssScene, camera)
+        })
+      } catch (err) {
+        setErrorDialogOpen(true)
+      }
     }
 
     if (targetUrl) {
@@ -100,6 +106,7 @@ const Template0 = ({ experience }) => {
 
   return (
     <>
+      <ErrorDialog open={ErrorDialogOpen} />
       <Reticle />
       <ReticleLoading />
       {isFound && <SoundButton isMuted={isMuted} toggleMute={toggleMute} />}

@@ -28,7 +28,6 @@ const Experience = () => {
 
   useEffect(() => {
     const getExperience = async () => {
-      console.log('getExperience')
       try {
         const res = await request({ url: `/experiences/${id}` })
         setExperience(res.experience)
@@ -44,7 +43,11 @@ const Experience = () => {
   }, [status, request, id])
 
   if (!!experience && !experience.isRemoved) {
-    return <TemplateSwitch experience={experience} />
+    return (
+      <>
+        <TemplateSwitch experience={experience} />
+      </>
+    )
   } else if (status === 'idle' || status === 'loading') {
     return <LoadingScreen />
   } else {
