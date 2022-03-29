@@ -20,9 +20,9 @@ const ErrorDialog = ({ open }) => {
         Permissions → Flip switch next to "Camera"
         <br />
         <br />
-        If that doesn't work,
+        If that doesn't work,{' '}
         <Link
-          href="https://plynth.com/s/contact"
+          href="https://plynth.com/contact"
           target="_blank"
           rel="noreferrer"
         >
