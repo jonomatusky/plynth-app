@@ -10,12 +10,12 @@ const ErrorDialog = ({ open }) => {
         follow these steps and then refresh the page:
         <br />
         <br />
-        <b>On iPhone:</b>
+        <b>On iPhone: </b>
         Open the Settings app → Scroll down and tap your browser icon → Flip
         switch next to "Camera"
         <br />
         <br />
-        <b>On Android:</b>
+        <b>On Android: </b>
         Open the Settings app → Scroll down and tap your browser icon → Tap
         Permissions → Flip switch next to "Camera"
         <br />
