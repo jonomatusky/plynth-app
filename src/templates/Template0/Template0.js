@@ -10,8 +10,15 @@ import ErrorDialog from './components/ErrorDialog'
 const Template0 = ({ experience }) => {
   const videoRef = useRef()
 
-  const { objects, links, targetUrl, hideLinks, showLinksImmediately } =
-    experience || {}
+  const {
+    objects,
+    links,
+    targetUrl,
+    hideLinks,
+    showLinksImmediately,
+    filterMinCF,
+    filterBeta,
+  } = experience || {}
   const object = (objects || [])[0]
   const link = (links || [])[0]
   const {
@@ -62,8 +69,8 @@ const Template0 = ({ experience }) => {
       const mindarThree = new window.MINDAR.IMAGE.MindARThree({
         container: document.querySelector('#container'),
         imageTargetSrc: targetUrl,
-        filterMinCF: 0.00000001,
-        filterBeta: 1,
+        filterMinCF: filterMinCF || 0.00000001,
+        filterBeta: filterBeta || 1,
         uiScanning: '#reticle',
         uiLoading: '#reticle-loading',
       })
@@ -88,7 +95,7 @@ const Template0 = ({ experience }) => {
     if (targetUrl) {
       initMindAR()
     }
-  }, [targetUrl])
+  }, [targetUrl, filterMinCF, filterBeta])
 
   const containerStyle = {
     height: '100%',
