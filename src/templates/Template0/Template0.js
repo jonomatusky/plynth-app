@@ -69,8 +69,8 @@ const Template0 = ({ experience }) => {
       const mindarThree = new window.MINDAR.IMAGE.MindARThree({
         container: document.querySelector('#container'),
         imageTargetSrc: targetUrl,
-        filterMinCF: filterMinCF || 0.00000001,
-        filterBeta: filterBeta || 1,
+        filterMinCF: filterMinCF || 0.0001,
+        filterBeta: filterBeta || 10000,
         uiScanning: '#reticle',
         uiLoading: '#reticle-loading',
       })
@@ -105,8 +105,8 @@ const Template0 = ({ experience }) => {
   }
 
   const arStyle = {
-    width: '1000px',
-    height: 1000 * (height / width) + 'px',
+    width: '1010px',
+    height: 1010 * (height / width) + 'px',
     textAlign: 'center',
     visibility: 'hidden',
   }
