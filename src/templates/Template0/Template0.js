@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Box, Button } from '@mui/material'
+import ReactPlayer from 'react-player'
 import Div100vh from 'components/Div100vh'
 import { CSS3DObject } from 'util/CSS3DRenderer'
 import BrandingBar from 'templates/components/BrandingBar'
@@ -22,6 +23,7 @@ const Template0 = ({ experience }) => {
   const object = (objects || [])[0]
   const link = (links || [])[0]
   const {
+    assetType: videoType,
     assetUrl: src,
     height,
     width,
@@ -34,23 +36,36 @@ const Template0 = ({ experience }) => {
 
   const [isFound, setIsFound] = useState(false)
   const [isMuted, setIsMuted] = useState(!unMuted)
+  const [isPlaying, setIsPlaying] = useState(false)
   const [ErrorDialogOpen, setErrorDialogOpen] = useState(false)
 
   const play = () => {
+    // if using html5 video
     if (videoRef.current) {
       videoRef.current.play()
     }
+
+    // if using react-player
+    setIsPlaying(true)
   }
 
   const pause = () => {
+    // if using html5 video
     if (videoRef.current) {
       videoRef.current.pause()
     }
+
+    //if using react-player
+    setIsPlaying(false)
   }
 
   const toggleMute = () => {
-    videoRef.current.muted = !isMuted
+    // if using html5 video
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted
+    }
 
+    // if using react-player (determines button state either way)
     setIsMuted(!isMuted)
   }
 
@@ -148,17 +163,45 @@ const Template0 = ({ experience }) => {
         <div id="container" style={containerStyle}></div>
         <div id="ar-div" style={arStyle}>
           {!!src && (
-            <video
-              ref={videoRef}
-              src={src}
-              loop={!unLoop}
-              muted={!unMuted}
-              height={1000 * (height / width) + 'px'}
-              width="1000px"
-              style={{ objectFit: 'cover' }}
-              playsInline
-              preload="auto"
-            ></video>
+            <>
+              {videoType === 'videoFile' ? (
+                <video
+                  ref={videoRef}
+                  src={src}
+                  loop={!unLoop}
+                  muted={isMuted}
+                  height="100%"
+                  width="100%"
+                  style={{ objectFit: 'cover' }}
+                  playsInline
+                  preload="auto"
+                />
+              ) : (
+                <Box
+                  height={1010 * (height / width) + 'px'}
+                  width="1010px"
+                  textAlign="center"
+                  overflow="hidden"
+                  // position="relative"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <ReactPlayer
+                    // style={{ position: 'absolute', objectFit: 'cover' }}
+                    // onReady={player => console.log(player)}
+                    playing={isPlaying}
+                    url={src}
+                    loop={!unLoop}
+                    muted={isMuted}
+                    playsInline
+                    preload="auto"
+                    width="100%"
+                    height="100%"
+                  />
+                </Box>
+              )}
+            </>
           )}
         </div>
       </Div100vh>
