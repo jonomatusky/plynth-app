@@ -7,6 +7,7 @@ import BrandingBar from 'templates/components/BrandingBar'
 import { Reticle, ReticleLoading } from '../components/Reticle'
 import SoundButton from 'templates/components/SoundButton'
 import ErrorDialog from './components/ErrorDialog'
+// import { useRequest } from 'hooks/use-request'
 
 const Template0 = ({ experience }) => {
   const videoRef = useRef()
@@ -126,6 +127,30 @@ const Template0 = ({ experience }) => {
     visibility: 'hidden',
   }
 
+  // const [youtubeDimensions, setYoutubeDimensions] = useState(null)
+
+  // const { request } = useRequest()
+  // useEffect(() => {
+  //   const getYoutubeDimensions = async () => {
+  //     try {
+  //       const data = await request({
+  //         url: `https://www.youtube.com/oembed?url=${src}&format=json`,
+  //       })
+
+  //       const { height, width } = data || {}
+
+  //       if (height && width) {
+  //         setYoutubeDimensions({ height, width })
+  //       }
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
+  //   if (videoType === 'youtube') {
+  //     getYoutubeDimensions()
+  //   }
+  // }, [videoType, src, request])
+
   return (
     <>
       <ErrorDialog open={ErrorDialogOpen} />
@@ -196,7 +221,27 @@ const Template0 = ({ experience }) => {
                     muted={isMuted}
                     playsInline
                     preload="auto"
+                    // width={
+                    //   !!youtubeDimensions
+                    //     ? Math.max(
+                    //         1000,
+                    //         (1000 / (width / height)) *
+                    //           (youtubeDimensions.width /
+                    //             youtubeDimensions.height)
+                    //       ) + 'px'
+                    //     : '100%'
+                    // }
                     width="100%"
+                    // height={
+                    //   !!youtubeDimensions
+                    //     ? Math.max(
+                    //         1000 / (width / height),
+                    //         1000 /
+                    //           (youtubeDimensions.width /
+                    //             youtubeDimensions.height)
+                    //       ) + 'px'
+                    //     : '100%'
+                    // }
                     height="100%"
                   />
                 </Box>
