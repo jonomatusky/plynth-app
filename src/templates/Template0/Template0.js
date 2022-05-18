@@ -7,6 +7,7 @@ import BrandingBar from 'templates/components/BrandingBar'
 import { Reticle, ReticleLoading } from '../components/Reticle'
 import SoundButton from 'templates/components/SoundButton'
 import ErrorDialog from './components/ErrorDialog'
+import { PlayCircle } from '@mui/icons-material'
 // import { useRequest } from 'hooks/use-request'
 
 const Template0 = ({ experience }) => {
@@ -68,6 +69,7 @@ const Template0 = ({ experience }) => {
 
     // if using react-player (determines button state either way)
     setIsMuted(!isMuted)
+    play()
   }
 
   useEffect(() => {
@@ -184,11 +186,17 @@ const Template0 = ({ experience }) => {
         </Box>
       )}
       <BrandingBar />
-      <Div100vh width="100%" overflow="hidden">
+      <Div100vh width="100%" overflow="hidden" onClick={play}>
         <div id="container" style={containerStyle}></div>
         <div id="ar-div" style={arStyle}>
           {!!src && (
-            <>
+            <Box
+              display="flex"
+              height="100%"
+              width="100%"
+              alignItems="center"
+              justifyContent="center"
+            >
               {videoType === 'videoFile' ? (
                 <video
                   ref={videoRef}
@@ -197,7 +205,11 @@ const Template0 = ({ experience }) => {
                   muted={isMuted}
                   height="100%"
                   width="100%"
-                  style={{ objectFit: 'cover' }}
+                  style={{
+                    objectFit: 'cover',
+                    position: 'absolute',
+                    zIndex: '100',
+                  }}
                   playsInline
                   preload="auto"
                 />
@@ -207,7 +219,8 @@ const Template0 = ({ experience }) => {
                   width="1010px"
                   textAlign="center"
                   overflow="hidden"
-                  // position="relative"
+                  position="absolute"
+                  zIndex="100"
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
@@ -246,7 +259,19 @@ const Template0 = ({ experience }) => {
                   />
                 </Box>
               )}
-            </>
+              <Box
+                width="100%"
+                height="100%"
+                position="absolute"
+                zIndex="10"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                fontSize="250px"
+              >
+                <PlayCircle fontSize="inherit" />
+              </Box>
+            </Box>
           )}
         </div>
       </Div100vh>
